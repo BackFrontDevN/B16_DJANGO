@@ -1,6 +1,8 @@
-# from django import template
-# register = template.Library()
+from django import template
 
-# @register.filter
-# def extired(value):
-#     return Django
+register = template.Library()
+
+@register.filter
+def excitred(value):
+    return f"{value}!!!"
+
