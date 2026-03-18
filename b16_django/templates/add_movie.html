@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% if is_edit %}Редактировать{% else %}Добавить{% endif %} фильм</title>
+    <link rel="stylesheet" href="{% static 'category_form.css' %}">
+</head>
+
+{% block content %}
+<h2>{% if is_edit %}Редактировать{% else %}Добавить{% endif %} фильм</h2>
+
+<form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form.as_div }}
+    <button type="submit" class="btn btn-primary">{% if is_edit %}Сохранить{% else %}Добавить{% endif %}</button>
+    </form>
+
+{% endblock content %}

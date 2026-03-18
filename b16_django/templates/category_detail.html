@@ -1,0 +1,65 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ category.name }}</title>
+    <link rel="stylesheet" href="{% static 'category_detail.css' %}">
+</head>
+<body>
+
+<header>
+    <h1>Кинотеатр</h1>
+    <form method='get' class="search-form">
+            <input type="text" name="q" placeholder="Поиск фильма..."value="{{  qwery|default:"" }}">
+            <button type="sumbit">Найти</button>
+</header>
+
+<div class="container">
+
+    <a class="back-link" href="{% url 'main_page' %}">← Назад на главную</a>
+
+    <h2 class="category-title">Категория: {{ category.name }}</h2>
+
+    {% if movies %}
+        <div class="movies">
+            {% for movie in movies %}
+            <a href="{% url 'movie_detail' movie.pk %}" style="text-decoration: none; color: inherit;">
+                <div class="movie-card">
+                    {% if movie.image %}
+                        <img src="{{ movie.image.url }}" alt="{{ movie.name }}">
+                    {% else %}
+                        <img src="https://via.placeholder.com/200x260?text=No+Image" alt="{{ movie.name }}">
+                    {% endif %}
+                    <h4>{{ movie.name }}</h4>
+                    <p>{{ movie.year }}</p>
+                </div>
+            </a>
+            {% endfor %}
+        </div>
+    {% else %}
+        <div class="empty">
+            В этой категории пока нет фильмов.
+        </div>
+    {% endif %}
+
+
+    <div class="pagination">
+        {% if movies.has_previous %}
+            <a href="?{% if query %}q={{ query }}&{% endif %}page={{ movies.previous_page_number }}">‹ Назад</a>
+        {% endif %}
+
+        <span>
+            Страница {{ movies.number }} из {{ movies.paginator.num_pages }}
+        </span>
+
+        {% if movies.has_next %}
+            <a href="?{% if query %}q={{ query }}&{% endif %}page={{ movies.next_page_number }}">Вперед ›</a>
+        {% endif %}
+    </div>
+
+</div>
+
+</body>
+</html>

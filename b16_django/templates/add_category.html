@@ -1,0 +1,32 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Добавить категорию</title>
+    <link rel="stylesheet" href="{% static 'category_form.css' %}">
+</head>
+
+<body>
+    <div class="container">
+        <div class="form-card">
+            <h1 class="title">Добавить категорию</h1>
+
+            <form method="post" class="form">
+                {% csrf_token %}
+                
+                {% if form.errors %}
+                    <div class="form-errors">
+                        {{ form.errors }}
+                    </div>
+                {% endif %}
+
+                {{ form.as_p }}
+
+                <button type="submit" class="btn">Сохранить</button>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,62 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register</title>
+    <link rel="stylesheet" href="{% static 'register.css' %}">
+</head>
+<body>
+    <div class="container1">
+        <div class="heading">
+            Register to your account
+        </div>
+
+        <form class="form" method="POST">
+            {% csrf_token %}
+            <div class="input-field">
+                <input
+                    required
+                    autocomplete="off"
+                    type="text"
+                    name="text"
+                    id="username"
+                />
+                <label for="username">User Name</label>
+            </div>
+
+            <div class="input-field">
+                <input
+                    required
+                    autocomplete="off"
+                    type="Password"
+                    name="Password"
+                    id="Password"
+                />
+                <label for="email">Password</label>
+            </div>
+
+            <div class="input-field">
+                <input
+                    required
+                    autocomplete="off"
+                    type="password"
+                    name="text"
+                    id="password"
+                />
+                <label for="password">Password</label>
+            </div>
+
+            <div class="btn-container">
+                <a href="{% url 'ch/' %}">Register</a>
+                <div class="acc-text">
+                    <span style="color: #0000ff; cursor: pointer;">
+                        <a href="{% url 'login' %}">log in</a>
+                    </span>
+                </div>
+            </div>
+        </form>
+    </div>
+</body>
+</html>

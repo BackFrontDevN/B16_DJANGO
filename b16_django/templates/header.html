@@ -1,0 +1,32 @@
+{% load static %}
+{% load custom_tags %}
+
+{% get_categories as categories %}
+
+<header>
+        <h1><a href="{% url 'main_page' %}">Кинотеатр</a></h1>
+        <div class="navi">
+            <div class="header-actions">
+                <a href="{% url 'add_movie' %}" class="btn">+ Добавить фильм</a>
+                <a href="{% url 'add_category' %}" class="btn">+ Добавить Категорию</a>
+                <a href="{% url 'add_genre' %}" class="btn">+ Добавить жанр</a>
+            </div>
+
+            <div class="sign">
+                <a href="{% url 'login' %}" class="btn">login</a>
+                <a href="{% url 'register' %}" class="btn">register</a>
+            </div>
+        </div>
+
+        <form method="get" class="search-form">
+            <input type="text" name="q" placeholder="Поиск фильма..." value="{{ query|default:'' }}">
+            <button type="submit">Найти</button>
+        </form>
+    </header>
+
+    <nav class="categories">
+        {% for category in categories %}
+            <a href="/category/{{ category.slug }}">{{ category.name }}</a>
+        {% endfor %}
+    </nav>
+

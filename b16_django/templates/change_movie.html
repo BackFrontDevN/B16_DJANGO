@@ -1,0 +1,52 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Редактировать фильм</title>
+    <link rel="stylesheet" href="{% static 'movie_form.css' %}">
+</head>
+<body>
+
+<h2>Редактировать фильм</h2>
+
+<form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+
+    <input type="text" name="name" placeholder="Название фильма" value="{{ movie.name }}" required>
+    <textarea name="description" placeholder="Описание">{{ movie.description }}</textarea>
+    <input type="text" name="country" placeholder="Страна" value="{{ movie.country }}">
+    <input type="text" name="directed_by" placeholder="Режиссер" value="{{ movie.directed_by }}" required>
+    <input type="text" name="age_rating" placeholder="Возраст" value="{{ movie.age_rating }}">
+    <input type="number" name="raiting" placeholder="Рейтинг (1-10)" value="{{ movie.raiting }}" min="1" max="10">
+
+    <label>Категория:</label>
+    <select name="category">
+        {% for category in categories %}
+            <option value="{{ category.id }}" {% if category.id == movie.category_id %}selected{% endif %}>
+                {{ category.name }}
+            </option>
+        {% endfor %}
+    </select>
+
+    <label>Жанры:</label>
+    <div class="genre-checkboxes">
+        {% for g in genres %}
+            <label class="genre-label">
+                <input type="checkbox" name="genres" value="{{ g.id }}"
+                        {% if g.id in movie_genre_ids %}checked{% endif %}>
+                {{ g.name }}
+            </label>
+        {% endfor %}
+    </div>
+
+    <label>Картинка:</label>
+    <input type="file" name="image">
+
+    <label>Трейлер:</label>
+    <input type="file" name="trailir_video">
+
+    <button type="submit">Сохранить изменения</button>
+</form>
+
+</body>
+</html>
